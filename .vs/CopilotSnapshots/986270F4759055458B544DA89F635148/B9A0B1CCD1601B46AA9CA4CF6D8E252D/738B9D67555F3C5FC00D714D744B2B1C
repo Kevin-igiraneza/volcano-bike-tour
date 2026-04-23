@@ -1,4 +1,4 @@
-// Volcano Bike Tour - Interactivity Script
+﻿// Volcano Bike Tour - Interactivity Script
 
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');

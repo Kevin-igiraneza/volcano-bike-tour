@@ -1,21 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volcano Bike Tour | Adventure Cycling & Hiking in Rwanda</title>
     <meta name="description" content="Experience the beauty of Rwanda with Volcano Bike Tour. Professional guided mountain bike, road bike, and hiking tours across the Land of a Thousand Hills.">
-
-    <!-- Open Graph / Social Media Preview Tags -->
-    <meta property="og:title" content="Volcano Bike Tour | Rwanda">
-    <meta property="og:description" content="Experience the beauty of Rwanda. Professional guided mountain bike, road bike, and hiking tours.">
-    <meta property="og:image" content="https://volcanobiketour.com/logo.png">
-    <meta property="og:url" content="https://volcanobiketour.com">
-    <meta property="og:type" content="website">
-
-    <!-- Leaflet CSS for Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,16 +23,15 @@
                 <img src="logo.png" alt="Volcano Bike Tour Logo" class="logo-img">
                 <span class="logo-text">Volcano <span>Bike Tour</span></span>
             </a>
-            <nav class="nav-links" id="nav-links" aria-label="Main Navigation">
+            <nav class="nav-links" id="nav-links">
                 <a href="#home" class="active">Home</a>
                 <a href="#about">About</a>
                 <a href="#tours">Tours</a>
                 <a href="#why-us">Why Us</a>
                 <a href="#gallery">Gallery</a>
                 <a href="#contact" class="btn btn-primary nav-cta">Book Now</a>
-                <button id="dark-mode-toggle" aria-label="Toggle Dark Mode" class="dark-mode-btn"><i class="fas fa-moon"></i></button>
             </nav>
-            <div class="hamburger" id="hamburger" aria-label="Menu Toggle" role="button">
+            <div class="hamburger" id="hamburger">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
@@ -233,15 +221,6 @@
                 <h2 class="section-title">Adventure <span>Gallery</span></h2>
                 <p>A glimpse into the incredible journeys, landscapes, and experiences that await you in Rwanda.</p>
             </div>
-            
-            <!-- Category Filter Buttons -->
-            <div class="gallery-filters" id="gallery-filters">
-                <button class="filter-btn active" data-filter="all">ALL <span class="filter-count">(34)</span></button>
-                <button class="filter-btn" data-filter="mountain">MOUNTAIN <span class="filter-count">(12)</span></button>
-                <button class="filter-btn" data-filter="road">ROAD <span class="filter-count">(9)</span></button>
-                <button class="filter-btn" data-filter="hiking">HIKING <span class="filter-count">(13)</span></button>
-            </div>
-
             <!-- Dynamic Gallery Grid -->
             <div class="gallery-grid" id="dynamic-gallery">
                 <!-- Loaded via JavaScript -->
@@ -334,7 +313,6 @@
                             </div>
                         </li>
                     </ul>
-                    <div id="map" class="map-container shadow"></div>
                 </div>
                 <div class="contact-form-container shadow">
                     <form id="booking-form">
@@ -410,8 +388,6 @@
         </div>
     </footer>
 
-    <!-- Leaflet JS for Map -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="script.js"></script>
 </body>
 </html>

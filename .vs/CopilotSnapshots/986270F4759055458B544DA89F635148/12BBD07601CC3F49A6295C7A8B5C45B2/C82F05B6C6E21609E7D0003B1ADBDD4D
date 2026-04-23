@@ -1,4 +1,4 @@
-// Volcano Bike Tour - Interactivity Script
+﻿// Volcano Bike Tour - Interactivity Script
 
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 5. Advanced Gallery with Preview Grid & Full View Modal
-    let allImages = [
+    const allImages = [
         "WhatsApp Image 2026-04-22 at 10.01.50 AM.jpeg",
         "WhatsApp Image 2026-04-22 at 10.01.57 AM.jpeg",
         "WhatsApp Image 2026-04-22 at 10.02.05 AM.jpeg",
@@ -113,76 +113,36 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     let currentImgIndex = 0;
-    let currentFilter = 'all';
-    
-    // Store original allImages copy safely since we overwrite it during filtering
-    const originalImagesState = [...allImages];
-
-    // Assign categories securely to images based on index pattern
-    const categorizedImages = originalImagesState.map((img, index) => {
-        let cat = 'mountain';
-        if (index % 3 === 1) cat = 'road';
-        if (index % 3 === 2) cat = 'hiking';
-        return { src: img, category: cat };
-    });
+    const previewCount = 7; // Show 7 images + 1 "View All" card
 
     const galleryGrid = document.getElementById('dynamic-gallery');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
-    const filterBtns = document.querySelectorAll('.filter-btn');
 
     function renderPreviewGallery() {
         galleryGrid.innerHTML = '';
-        
-        let filteredImages = categorizedImages;
-        if (currentFilter !== 'all') {
-            filteredImages = categorizedImages.filter(img => img.category === currentFilter);
-        }
+        const previewImages = allImages.slice(0, previewCount);
 
-        // Show max 8 images per filter view for grid neatness
-        const imagesToDisplay = filteredImages.slice(0, 8);
-
-        imagesToDisplay.forEach((imgObj, i) => {
+        previewImages.forEach((imgName, index) => {
             const item = document.createElement('div');
-            item.className = 'gallery-item fade-up visible'; // Ensure immediate view on filter
-            
-            item.innerHTML = `
-                <img src="images/${imgObj.src}" alt="${imgObj.category} in Rwanda" loading="lazy">
-            `;
-            
-            item.addEventListener('click', () => {
-                // Update the lightbox active array to match exactly what's visible
-                allImages = filteredImages.map(f => f.src);
-                openLightbox(i);
-            });
+            item.className = 'gallery-item';
+            item.innerHTML = `<img src="images/${imgName}" alt="Volcano Bike Tour Rwanda">`;
+            item.addEventListener('click', () => openLightbox(index));
             galleryGrid.appendChild(item);
         });
 
-        // Add View All Card if necessary (optional bonus touch)
-        if (filteredImages.length > 8) {
-            const viewAllCard = document.createElement('div');
-            viewAllCard.className = 'gallery-item view-all-card fade-up visible';
-            viewAllCard.innerHTML = `<span class="view-all-text">VIEW ALL ${filteredImages.length}</span>`;
-            viewAllCard.addEventListener('click', () => {
-                allImages = filteredImages.map(f => f.src);
-                openLightbox(0);
-            });
-            galleryGrid.appendChild(viewAllCard);
-        }
+        // Add "View All" Card
+        const viewAllCard = document.createElement('div');
+        viewAllCard.className = 'gallery-item view-all-card';
+        viewAllCard.innerHTML = `
+            <i class="fas fa-images"></i>
+            <h4>View All</h4>
+            <p>${allImages.length} Photos</p>
+        `;
+        viewAllCard.addEventListener('click', () => openLightbox(0));
+        galleryGrid.appendChild(viewAllCard);
     }
-
-    // Filter Navigation Logic
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentFilter = btn.getAttribute('data-filter');
-            
-            // Re-render gallery
-            renderPreviewGallery();
-        });
-    });
 
     function openLightbox(index) {
         currentImgIndex = index;
@@ -235,24 +195,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderPreviewGallery();
 
-    // 6. Booking Form Submission & Validation
+    // 6. Booking Form Submission
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            // Basic Frontend Validation Check
-            const nameInput = bookingForm.querySelector('input[type="text"]').value.trim();
-            const emailInput = bookingForm.querySelector('input[type="email"]').value.trim();
-            if(!nameInput || !emailInput) {
-                alert('Please fill out your name and email completely.');
-                return;
-            }
-
             const submitBtn = bookingForm.querySelector('button');
             submitBtn.disabled = true;
             submitBtn.innerText = 'Sending...';
             setTimeout(() => {
-                alert(`Thank you, ${nameInput}! We will contact you shortly via WhatsApp or Email.`);
+                alert('Thank you! We will contact you shortly via WhatsApp or Email.');
                 bookingForm.reset();
                 submitBtn.disabled = false;
                 submitBtn.innerText = 'Send Booking Inquiry';
@@ -260,65 +212,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. Dark Mode Toggle with LocalStorage
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const bodyEl = document.body;
-
-    // Check saved preference
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
-        bodyEl.classList.add('dark-mode');
-        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    }
-
-    darkModeToggle.addEventListener('click', () => {
-        bodyEl.classList.toggle('dark-mode');
-        let theme = 'light';
-
-        if (bodyEl.classList.contains('dark-mode')) {
-            theme = 'dark';
-            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        } else {
-            darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        }
-
-        localStorage.setItem('theme', theme);
-    });
-
-    // 8. Initialize Leaflet JS Map (Musanze, Rwanda)
-    const mapEl = document.getElementById('map');
-    if (mapEl && typeof L !== 'undefined') {
-        const musanzeCoords = [-1.4988, 29.6385];
-        const map = L.map('map').setView(musanzeCoords, 12);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        L.marker(musanzeCoords).addTo(map)
-            .bindPopup('<b>Volcano Bike Tour Base Camp</b><br>Musanze, Rwanda')
-            .openPopup();
-    }
-
-    // 9. Scroll Animations via IntersectionObserver (Enhanced performant CSS-based)
-    const fadeObserver = new IntersectionObserver((entries, observer) => {
+    // 7. Reveal Animation
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Animate only once
-            }
+            if (entry.isIntersecting) entry.target.classList.add('reveal');
         });
-    }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
+    }, { threshold: 0.1 });
 
-    // Assuming HTML elements have the '.fade-up' class added to them.
-    // Also auto-add to cards for cascading animation
-    document.querySelectorAll('.tour-card, .feature-card, .testimonial-card').forEach((el, index) => {
-        el.classList.add('fade-up');
-        el.style.transitionDelay = `${index * 0.1}s`; // Stagger effect
-        fadeObserver.observe(el);
+    document.querySelectorAll('section, .tour-card, .feature-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        observer.observe(el);
     });
 
-    document.querySelectorAll('.fade-up').forEach(el => {
-        fadeObserver.observe(el);
-    });
+    const revealStyle = document.createElement('style');
+    revealStyle.innerHTML = `.reveal { opacity: 1 !important; transform: translateY(0) !important; }`;
+    document.head.appendChild(revealStyle);
 });

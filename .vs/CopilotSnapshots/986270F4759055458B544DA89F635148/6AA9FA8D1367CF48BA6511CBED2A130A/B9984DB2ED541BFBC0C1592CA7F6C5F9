@@ -1,4 +1,4 @@
-// Volcano Bike Tour - Interactivity Script
+﻿// Volcano Bike Tour - Interactivity Script
 
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
@@ -75,51 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 5. Advanced Gallery with Preview Grid & Full View Modal
-    let allImages = [
-        "WhatsApp Image 2026-04-22 at 10.01.50 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.01.57 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.02.05 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.11 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.19 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.25 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.50 AM (1).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.50 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.51 AM (1).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.51 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.52 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.54 AM (3).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.54 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.56 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.57 AM (1).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.59 AM (1).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.03.59 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.00 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.01 AM (1).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.01 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.02 AM (2).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.03 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.04 AM (1).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.05 AM (1).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.06 AM (2).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.06 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.10 AM (2).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.12 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.13 AM (1).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.13 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.15 AM (1).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.15 AM (2).jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.15 AM.jpeg",
-        "WhatsApp Image 2026-04-22 at 10.04.16 AM.jpeg"
-    ];
-
     let currentImgIndex = 0;
     let currentFilter = 'all';
     
-    // Store original allImages copy safely since we overwrite it during filtering
-    const originalImagesState = [...allImages];
-
-    // Assign categories securely to images based on index pattern
-    const categorizedImages = originalImagesState.map((img, index) => {
+    // Assign categories randomly to allImages for the demo
+    const categorizedImages = allImages.map((img, index) => {
         let cat = 'mountain';
         if (index % 3 === 1) cat = 'road';
         if (index % 3 === 2) cat = 'hiking';
@@ -141,35 +101,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Show max 8 images per filter view for grid neatness
-        const imagesToDisplay = filteredImages.slice(0, 8);
+        const displayLimit = Math.min(filteredImages.length, 8);
+        const imagesToDisplay = filteredImages.slice(0, displayLimit);
 
         imagesToDisplay.forEach((imgObj, i) => {
             const item = document.createElement('div');
-            item.className = 'gallery-item fade-up visible'; // Ensure immediate view on filter
+            item.className = 'gallery-item fade-up visible'; // Make sure fade works properly
             
             item.innerHTML = `
                 <img src="images/${imgObj.src}" alt="${imgObj.category} in Rwanda" loading="lazy">
             `;
             
+            // Re-use lightbox array based on filtered results
             item.addEventListener('click', () => {
-                // Update the lightbox active array to match exactly what's visible
                 allImages = filteredImages.map(f => f.src);
                 openLightbox(i);
             });
             galleryGrid.appendChild(item);
         });
-
-        // Add View All Card if necessary (optional bonus touch)
-        if (filteredImages.length > 8) {
-            const viewAllCard = document.createElement('div');
-            viewAllCard.className = 'gallery-item view-all-card fade-up visible';
-            viewAllCard.innerHTML = `<span class="view-all-text">VIEW ALL ${filteredImages.length}</span>`;
-            viewAllCard.addEventListener('click', () => {
-                allImages = filteredImages.map(f => f.src);
-                openLightbox(0);
-            });
-            galleryGrid.appendChild(viewAllCard);
-        }
     }
 
     // Filter Navigation Logic

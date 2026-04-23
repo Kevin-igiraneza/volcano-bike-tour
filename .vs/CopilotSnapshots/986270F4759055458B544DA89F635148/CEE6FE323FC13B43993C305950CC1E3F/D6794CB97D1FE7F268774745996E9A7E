@@ -1,4 +1,4 @@
-// Volcano Bike Tour - Interactivity Script
+﻿// Volcano Bike Tour - Interactivity Script
 
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 5. Advanced Gallery with Preview Grid & Full View Modal
-    let allImages = [
+    const allImages = [
         "WhatsApp Image 2026-04-22 at 10.01.50 AM.jpeg",
         "WhatsApp Image 2026-04-22 at 10.01.57 AM.jpeg",
         "WhatsApp Image 2026-04-22 at 10.02.05 AM.jpeg",
@@ -113,76 +113,36 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     let currentImgIndex = 0;
-    let currentFilter = 'all';
-    
-    // Store original allImages copy safely since we overwrite it during filtering
-    const originalImagesState = [...allImages];
-
-    // Assign categories securely to images based on index pattern
-    const categorizedImages = originalImagesState.map((img, index) => {
-        let cat = 'mountain';
-        if (index % 3 === 1) cat = 'road';
-        if (index % 3 === 2) cat = 'hiking';
-        return { src: img, category: cat };
-    });
+    const previewCount = 7; // Show 7 images + 1 "View All" card
 
     const galleryGrid = document.getElementById('dynamic-gallery');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
-    const filterBtns = document.querySelectorAll('.filter-btn');
 
     function renderPreviewGallery() {
         galleryGrid.innerHTML = '';
-        
-        let filteredImages = categorizedImages;
-        if (currentFilter !== 'all') {
-            filteredImages = categorizedImages.filter(img => img.category === currentFilter);
-        }
+        const previewImages = allImages.slice(0, previewCount);
 
-        // Show max 8 images per filter view for grid neatness
-        const imagesToDisplay = filteredImages.slice(0, 8);
-
-        imagesToDisplay.forEach((imgObj, i) => {
+        previewImages.forEach((imgName, index) => {
             const item = document.createElement('div');
-            item.className = 'gallery-item fade-up visible'; // Ensure immediate view on filter
-            
-            item.innerHTML = `
-                <img src="images/${imgObj.src}" alt="${imgObj.category} in Rwanda" loading="lazy">
-            `;
-            
-            item.addEventListener('click', () => {
-                // Update the lightbox active array to match exactly what's visible
-                allImages = filteredImages.map(f => f.src);
-                openLightbox(i);
-            });
+            item.className = 'gallery-item';
+            item.innerHTML = `<img src="images/${imgName}" alt="Volcano Bike Tour Rwanda">`;
+            item.addEventListener('click', () => openLightbox(index));
             galleryGrid.appendChild(item);
         });
 
-        // Add View All Card if necessary (optional bonus touch)
-        if (filteredImages.length > 8) {
-            const viewAllCard = document.createElement('div');
-            viewAllCard.className = 'gallery-item view-all-card fade-up visible';
-            viewAllCard.innerHTML = `<span class="view-all-text">VIEW ALL ${filteredImages.length}</span>`;
-            viewAllCard.addEventListener('click', () => {
-                allImages = filteredImages.map(f => f.src);
-                openLightbox(0);
-            });
-            galleryGrid.appendChild(viewAllCard);
-        }
+        // Add "View All" Card
+        const viewAllCard = document.createElement('div');
+        viewAllCard.className = 'gallery-item view-all-card';
+        viewAllCard.innerHTML = `
+            <i class="fas fa-images"></i>
+            <h4>View All</h4>
+            <p>${allImages.length} Photos</p>
+        `;
+        viewAllCard.addEventListener('click', () => openLightbox(0));
+        galleryGrid.appendChild(viewAllCard);
     }
-
-    // Filter Navigation Logic
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentFilter = btn.getAttribute('data-filter');
-            
-            // Re-render gallery
-            renderPreviewGallery();
-        });
-    });
 
     function openLightbox(index) {
         currentImgIndex = index;

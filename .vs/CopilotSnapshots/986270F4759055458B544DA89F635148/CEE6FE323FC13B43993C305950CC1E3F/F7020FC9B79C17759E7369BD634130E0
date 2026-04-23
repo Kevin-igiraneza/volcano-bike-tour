@@ -1,4 +1,4 @@
-// Volcano Bike Tour - Interactivity Script
+﻿// Volcano Bike Tour - Interactivity Script
 
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 5. Advanced Gallery with Preview Grid & Full View Modal
-    let allImages = [
+    const allImages = [
         "WhatsApp Image 2026-04-22 at 10.01.50 AM.jpeg",
         "WhatsApp Image 2026-04-22 at 10.01.57 AM.jpeg",
         "WhatsApp Image 2026-04-22 at 10.02.05 AM.jpeg",
@@ -113,76 +113,47 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     let currentImgIndex = 0;
-    let currentFilter = 'all';
     
-    // Store original allImages copy safely since we overwrite it during filtering
-    const originalImagesState = [...allImages];
-
-    // Assign categories securely to images based on index pattern
-    const categorizedImages = originalImagesState.map((img, index) => {
-        let cat = 'mountain';
-        if (index % 3 === 1) cat = 'road';
-        if (index % 3 === 2) cat = 'hiking';
-        return { src: img, category: cat };
-    });
+    // Gallery categories to display on the home grid
+    const categories = [
+        { label: "Mountain", photos: 12 },
+        { label: "Road", photos: 9 },
+        { label: "Hiking", photos: 13 }
+    ];
 
     const galleryGrid = document.getElementById('dynamic-gallery');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
-    const filterBtns = document.querySelectorAll('.filter-btn');
 
     function renderPreviewGallery() {
         galleryGrid.innerHTML = '';
         
-        let filteredImages = categorizedImages;
-        if (currentFilter !== 'all') {
-            filteredImages = categorizedImages.filter(img => img.category === currentFilter);
-        }
-
-        // Show max 8 images per filter view for grid neatness
-        const imagesToDisplay = filteredImages.slice(0, 8);
-
-        imagesToDisplay.forEach((imgObj, i) => {
+        let idx = 0;
+        categories.forEach((cat, index) => {
             const item = document.createElement('div');
-            item.className = 'gallery-item fade-up visible'; // Ensure immediate view on filter
-            
+            item.className = 'gallery-item';
+            // Use specific diverse images for the thumbnails
+            let specificImg = index === 0 ? allImages[0] : index === 1 ? allImages[allImages.length - 2] : allImages[allImages.length - 8];
             item.innerHTML = `
-                <img src="images/${imgObj.src}" alt="${imgObj.category} in Rwanda" loading="lazy">
+                <img src="images/${specificImg}" alt="${cat.label} Tour in Rwanda" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="photo-count">${cat.photos} PHOTOS</span>
+                    <h3 class="gallery-title">${cat.label}</h3>
+                </div>
             `;
-            
-            item.addEventListener('click', () => {
-                // Update the lightbox active array to match exactly what's visible
-                allImages = filteredImages.map(f => f.src);
-                openLightbox(i);
-            });
+            item.addEventListener('click', () => openLightbox(idx));
+            idx++;
             galleryGrid.appendChild(item);
         });
 
-        // Add View All Card if necessary (optional bonus touch)
-        if (filteredImages.length > 8) {
-            const viewAllCard = document.createElement('div');
-            viewAllCard.className = 'gallery-item view-all-card fade-up visible';
-            viewAllCard.innerHTML = `<span class="view-all-text">VIEW ALL ${filteredImages.length}</span>`;
-            viewAllCard.addEventListener('click', () => {
-                allImages = filteredImages.map(f => f.src);
-                openLightbox(0);
-            });
-            galleryGrid.appendChild(viewAllCard);
-        }
+        // Add "View All" Card
+        const viewAllCard = document.createElement('div');
+        viewAllCard.className = 'gallery-item view-all-card';
+        viewAllCard.innerHTML = `<span class="view-all-text">VIEW ALL</span>`;
+        viewAllCard.addEventListener('click', () => openLightbox(0));
+        galleryGrid.appendChild(viewAllCard);
     }
-
-    // Filter Navigation Logic
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentFilter = btn.getAttribute('data-filter');
-            
-            // Re-render gallery
-            renderPreviewGallery();
-        });
-    });
 
     function openLightbox(index) {
         currentImgIndex = index;
