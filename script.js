@@ -17,17 +17,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. Mobile Menu Toggle
-    hamburger.addEventListener('click', () => {
+    const navOverlay = document.getElementById('nav-overlay');
+
+    function toggleMenu() {
         navLinks.classList.toggle('active');
+        navOverlay.classList.toggle('active');
         hamburger.querySelector('i').classList.toggle('fa-bars');
         hamburger.querySelector('i').classList.toggle('fa-times');
-    });
+        
+        // Prevent body scroll when menu is open
+        if (navLinks.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+
+    navOverlay.addEventListener('click', toggleMenu);
 
     links.forEach(link => {
         link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            hamburger.querySelector('i').classList.add('fa-bars');
-            hamburger.querySelector('i').classList.remove('fa-times');
+            if (navLinks.classList.contains('active')) {
+                toggleMenu();
+            }
         });
     });
 
@@ -61,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Advanced Gallery with Pagination & Lightbox Navigation
+    // 5. Advanced Gallery with Preview Grid & Full View Modal
     const allImages = [
         "WhatsApp Image 2026-04-22 at 10.01.50 AM.jpeg",
         "WhatsApp Image 2026-04-22 at 10.01.57 AM.jpeg",
@@ -99,49 +113,36 @@ document.addEventListener('DOMContentLoaded', () => {
         "WhatsApp Image 2026-04-22 at 10.04.16 AM.jpeg"
     ];
 
-    const imagesPerPage = 8;
-    let currentPage = 1;
     let currentImgIndex = 0;
+    const previewCount = 7; // Show 7 images + 1 "View All" card
 
     const galleryGrid = document.getElementById('dynamic-gallery');
-    const pagination = document.getElementById('gallery-pagination');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
 
-    function renderGallery(page) {
+    function renderPreviewGallery() {
         galleryGrid.innerHTML = '';
-        const start = (page - 1) * imagesPerPage;
-        const end = start + imagesPerPage;
-        const pageImages = allImages.slice(start, end);
+        const previewImages = allImages.slice(0, previewCount);
 
-        pageImages.forEach((imgName, index) => {
-            const absoluteIndex = start + index;
+        previewImages.forEach((imgName, index) => {
             const item = document.createElement('div');
             item.className = 'gallery-item';
             item.innerHTML = `<img src="images/${imgName}" alt="Volcano Bike Tour Rwanda">`;
-            item.addEventListener('click', () => openLightbox(absoluteIndex));
+            item.addEventListener('click', () => openLightbox(index));
             galleryGrid.appendChild(item);
         });
 
-        renderPagination();
-    }
-
-    function renderPagination() {
-        pagination.innerHTML = '';
-        const totalPages = Math.ceil(allImages.length / imagesPerPage);
-        
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement('button');
-            btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-            btn.innerText = i;
-            btn.addEventListener('click', () => {
-                currentPage = i;
-                renderGallery(currentPage);
-                document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
-            });
-            pagination.appendChild(btn);
-        }
+        // Add "View All" Card
+        const viewAllCard = document.createElement('div');
+        viewAllCard.className = 'gallery-item view-all-card';
+        viewAllCard.innerHTML = `
+            <i class="fas fa-images"></i>
+            <h4>View All</h4>
+            <p>${allImages.length} Photos</p>
+        `;
+        viewAllCard.addEventListener('click', () => openLightbox(0));
+        galleryGrid.appendChild(viewAllCard);
     }
 
     function openLightbox(index) {
@@ -193,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    renderGallery(currentPage);
+    renderPreviewGallery();
 
     // 6. Booking Form Submission
     const bookingForm = document.getElementById('booking-form');
