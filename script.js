@@ -63,7 +63,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. Advanced Gallery with Pagination & Lightbox Navigation
     const allImages = [
-        "WhatsApp Image 2026-04-22 at 10.01.50 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.01.53 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.01.57 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.02.05 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.02.09 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.11 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.13 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.19 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.25 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.44 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.47 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.48 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.50 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.03.50 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.51 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.03.51 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.52 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.53 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.54 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.03.54 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.03.54 AM (3).jpeg", "WhatsApp Image 2026-04-22 at 10.03.54 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.55 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.56 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.03.56 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.03.56 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.57 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.03.57 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.03.57 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.58 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.03.58 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.03.58 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.03.59 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.03.59 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.03.59 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.00 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.00 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.00 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.01 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.01 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.01 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.02 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.02 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.02 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.03 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.03 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.03 AM (3).jpeg", "WhatsApp Image 2026-04-22 at 10.04.03 AM (4).jpeg", "WhatsApp Image 2026-04-22 at 10.04.03 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.04 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.04 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.04 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.05 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.05 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.06 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.06 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.06 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.07 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.07 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.07 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.08 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.08 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.08 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.09 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.09 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.10 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.10 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.10 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.11 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.12 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.13 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.13 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.14 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.14 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.15 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.15 AM (2).jpeg", "WhatsApp Image 2026-04-22 at 10.04.15 AM.jpeg", "WhatsApp Image 2026-04-22 at 10.04.16 AM (1).jpeg", "WhatsApp Image 2026-04-22 at 10.04.16 AM.jpeg"
+        "WhatsApp Image 2026-04-22 at 10.01.50 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.01.57 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.02.05 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.11 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.19 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.25 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.50 AM (1).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.50 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.51 AM (1).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.51 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.52 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.54 AM (3).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.54 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.56 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.57 AM (1).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.59 AM (1).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.03.59 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.00 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.01 AM (1).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.01 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.02 AM (2).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.03 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.04 AM (1).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.05 AM (1).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.06 AM (2).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.06 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.10 AM (2).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.12 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.13 AM (1).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.13 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.15 AM (1).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.15 AM (2).jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.15 AM.jpeg",
+        "WhatsApp Image 2026-04-22 at 10.04.16 AM.jpeg"
     ];
 
     const imagesPerPage = 8;
