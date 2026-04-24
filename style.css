@@ -1076,13 +1076,15 @@ body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 250px;
+        width: 300px;
         height: 100vh;
         background: var(--charcoal);
         flex-direction: column;
-        padding-top: 100px;
+        align-items: flex-start;
+        padding-top: 80px;
         transition: var(--transition);
         box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        gap: 0;
     }
 
     .nav-links.active {
@@ -1091,8 +1093,31 @@ body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
 
     .nav-links a {
         color: var(--white);
+        width: 100%;
+        padding: 20px 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 1.2rem;
+        display: block;
+        transition: background-color 0.3s ease;
     }
-    
+
+    /* Button specific spacing to detach from nav flow */
+    .nav-links a.nav-cta {
+        margin: 30px;
+        width: calc(100% - 60px);
+        text-align: center;
+        border: none;
+    }
+
+    .nav-links a:active,
+    .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.05); /* Highlight touch effect */
+    }
+
+    .nav-links a.active {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+
     .hamburger {
         display: block;
     }
