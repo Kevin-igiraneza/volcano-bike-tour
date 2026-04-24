@@ -1092,7 +1092,7 @@ body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
     }
 
     .nav-links a {
-        color: var(--white);
+        color: var(--white) !important;
         width: 100%;
         padding: 20px 30px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -1116,6 +1116,7 @@ body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
 
     .nav-links a.active {
         background-color: rgba(255, 255, 255, 0.02);
+        color: var(--golden-yellow) !important;
     }
 
     .hamburger {
