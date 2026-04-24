@@ -239,11 +239,14 @@ img {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: url('images/WhatsApp Image 2026-04-22 at 10.04.01 AM.jpeg') center/cover no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     position: relative;
     color: var(--white);
+    transition: background-image 1s ease-in-out;
 }
 
 .hero-overlay {
@@ -1075,19 +1078,19 @@ body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
         right: -100%;
         width: 250px;
         height: 100vh;
-        background: var(--white);
+        background: var(--charcoal);
         flex-direction: column;
         padding-top: 100px;
         transition: var(--transition);
         box-shadow: -5px 0 15px rgba(0,0,0,0.1);
     }
-    
+
     .nav-links.active {
         right: 0;
     }
-    
+
     .nav-links a {
-        color: var(--charcoal);
+        color: var(--white);
     }
     
     .hamburger {

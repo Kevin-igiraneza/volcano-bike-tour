@@ -6,6 +6,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.getElementById('nav-links');
     const links = document.querySelectorAll('.nav-links a');
 
+    // Hero Section Slideshow
+    const heroImageSlides = [
+        'images/WhatsApp Image 2026-04-22 at 10.04.01 AM.jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.04.15 AM (1).jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.03.50 AM.jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.04.13 AM.jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.03.51 AM (1).jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.03.52 AM.jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.03.54 AM.jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.03.56 AM.jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.03.59 AM.jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.04.00 AM.jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.04.03 AM.jpeg',
+        'images/WhatsApp Image 2026-04-22 at 10.04.06 AM.jpeg'
+    ];
+    let currentSlide = 0;
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        heroSection.style.backgroundImage = `url('${heroImageSlides[currentSlide]}')`;
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % heroImageSlides.length;
+            heroSection.style.backgroundImage = `url('${heroImageSlides[currentSlide]}')`;
+        }, 3000); // Change image every 3 seconds
+    }
+
     // 1. Sticky Navbar Effect on Scroll
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
